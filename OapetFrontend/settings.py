@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'djoser',
     'corsheaders',
+    'security',
 ]
 
 MIDDLEWARE = [
@@ -102,14 +103,22 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        'rest_framework.permissions.IsAuthenticated',
     ]
 }
 
+AUTH_USER_MODEL = 'security.User'
+
+# DJOSER CONFIG
 DJOSER = {
-    'LOGIN_FIELD': 'username',
+    'LOGIN_FIELD': 'email',
     'USER_CREATE_PASSWORD_RETYPE': True,
     'SERIALIZERS': {
+        'user_create': 'security.serializers.UserCreateSerializer',
+        'user': 'security.serializers.UserCreateSerializer',
+        'teacher_create': 'security.serializers.TeacherCreateSerializer',
+        'teacher': 'security.serializers.TeacherCreateSerializer',
     }
 }
 
