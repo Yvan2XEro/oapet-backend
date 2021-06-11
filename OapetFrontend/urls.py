@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('security.urls')),
     path('', include('configuration.urls')),
+    path('', include('weekschedule.urls')),
 ]

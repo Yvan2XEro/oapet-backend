@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'corsheaders',
 
     'security',
-    'configuration'
+    'configuration',
+    'weekschedule',
 ]
 
 MIDDLEWARE = [
