@@ -10,12 +10,16 @@ class Pause(models.Model):
 
 
 class Config(models.Model):
+    DEFAULT_PERIOD_DURATION = 60
+    DEFAULT_PAUSE_DURATION = 30
+    DEFAULT_HOUR_BEGINING_DAY = 8
+    DEFAULT_HOUR_ENDING_DAY = 18
     # duree d'une periode et pause
-    period_duration = models.IntegerField(default=60)
-    pause_duration = models.IntegerField(default=30)
+    period_duration = models.IntegerField(default=DEFAULT_PERIOD_DURATION)
+    pause_duration = models.IntegerField(default=DEFAULT_PAUSE_DURATION)
     # Heure de debut et de fin d'une journee
-    begin_at = models.IntegerField(default=8)
-    end_at = models.IntegerField(default=18)
+    begin_at = models.IntegerField(default=DEFAULT_HOUR_BEGINING_DAY)
+    end_at = models.IntegerField(default=DEFAULT_HOUR_ENDING_DAY)
 
     # Les jours ouvrables
     Monday = models.BooleanField(default=True)
