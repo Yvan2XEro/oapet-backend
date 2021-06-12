@@ -10,8 +10,8 @@ class Pause(models.Model):
 
 
 class Config(models.Model):
-    DEFAULT_PERIOD_DURATION = 60
-    DEFAULT_PAUSE_DURATION = 30
+    DEFAULT_PERIOD_DURATION = 1
+    DEFAULT_PAUSE_DURATION = 1
     DEFAULT_HOUR_BEGINING_DAY = 8
     DEFAULT_HOUR_ENDING_DAY = 18
     # duree d'une periode et pause
@@ -31,3 +31,14 @@ class Config(models.Model):
     Sunday = models.BooleanField(default=False)
 
     pauses = models.ManyToManyField(Pause)
+
+    def get_flags_days(self):
+        return [self.Monday, self.Tuesday, self.Wednesday, self.Thursday, self.Friday, self.Saturday, self.Sunday]
+
+    def get_working_days_count(self):
+        oping_days = self.get_flags_days()
+        i = 0
+        for flag in oping_days:
+            if flag:
+                i += 1
+        return i
