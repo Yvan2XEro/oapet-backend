@@ -7,6 +7,7 @@ class Week(models.Model):
     first_day = models.DateField(null=False)
     last_day = models.DateField(null=True)
     is_ok = models.BooleanField(default=False)
+    configurations = models.ForeignKey(Config, on_delete=models.PROTECT)
 
     def __str__(self):
         return str(self.first_day)
