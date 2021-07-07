@@ -14,6 +14,8 @@ class Config(models.Model):
     DEFAULT_PAUSE_DURATION = 1
     DEFAULT_HOUR_BEGINING_DAY = 8
     DEFAULT_HOUR_ENDING_DAY = 18
+
+    name = models.CharField(unique=True, max_length=255)
     # duree d'une periode et pause
     period_duration = models.IntegerField(default=DEFAULT_PERIOD_DURATION)
     pause_duration = models.IntegerField(default=DEFAULT_PAUSE_DURATION)
@@ -42,3 +44,6 @@ class Config(models.Model):
             if flag:
                 i += 1
         return i
+
+    def __str__(self):
+        return self.name

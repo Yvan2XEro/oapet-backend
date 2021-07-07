@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import generics
+from rest_framework import generics, viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import *
@@ -47,6 +47,7 @@ class ScheduleGenratorView(APIView):
 
     def post(self, request, pk, Format=None):
         week = get_object_or_404(Week, pk=pk)
+        serializer = WeekSerializer(week)
         config = week.configurations
         begin_day_at = config.begin_at
         end_day_at = config.end_at
@@ -58,29 +59,36 @@ class ScheduleGenratorView(APIView):
         first_day = week.first_day
         n = config.get_working_days_count()
         dates = [first_day + datetime.timedelta(days=x) for x in range(n)]
-        for date in dates:
-            weekday = date.weekday()
-            if flags_days[weekday]:
-                d = Day()
-                d.date = datetime.date(int(date.year), int(date.month), int(date.day))
-                d.week = week
-                d.save()
+        if week.is_generated == False:
+            for date in dates:
+                weekday = date.weekday()
+                if flags_days[weekday]:
+                    d = Day()
+                    d.date = datetime.date(
+                        int(date.year), int(date.month), int(date.day))
+                    d.week = week
+                    d.save()
 
-                next_period_begin = begin_day_at
-                while next_period_begin < end_day_at:
-                    period = Period()
-                    period.hour_begin = next_period_begin
-                    if next_period_begin not in [p.begin_at for p in pauses]:
-                        next_period_begin += period_duration
-                    else:
-                        next_period_begin += pause_duration
-                        period.is_pause = True
-                    period.hour_end = next_period_begin
-                    period.day = d
-                    period.save()
-        # serializer = WeekSerializer(week)
-        k = datetime.date(int(dates[0].year), int(dates[0].month), int(dates[0].day))
-        return Response({
-            "test": str(k)
-        })
+                    next_period_begin = begin_day_at
+                    while next_period_begin < end_day_at:
+                        period = Period()
+                        period.hour_begin = next_period_begin
+                        if next_period_begin not in [p.begin_at for p in pauses]:
+                            next_period_begin += period_duration
+                        else:
+                            next_period_begin += pause_duration
+                            period.is_pause = True
+                        period.hour_end = next_period_begin
+                        period.day = d
+                        period.save()
+            week.is_generated = True
+        k = datetime.date(int(dates[0].year), int(
+            dates[0].month), int(dates[0].day))
+        return Response(serializer.data)
 
+
+class DaysByWeekViewSet(viewsets.ViewSet):
+    def getDaysByWeekId(self, request, pk):
+        queryset = Day.objects.all().filter(week=pk)
+        serializer = DaySerializer(queryset, many=True)
+        return Response(serializer.data)

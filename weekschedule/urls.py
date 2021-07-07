@@ -9,4 +9,6 @@ urlpatterns = [
     path('weeks/', WeekListCreateAPIView.as_view()),
     path('weeks/<int:pk>/generate-schedule', ScheduleGenratorView.as_view()),
     path('weeks/<int:pk>/', WeekUpdateDeleteAPIView.as_view()),
+    path('weeks/<int:pk>/days',
+         DaysByWeekViewSet.as_view({'get': 'getDaysByWeekId'}))
 ]
