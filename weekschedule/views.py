@@ -99,3 +99,18 @@ class PeriodByDayViewSet(viewsets.ViewSet):
         queryset = Period.objects.all().filter(day=pk)
         serializer = PeriodSerializer(queryset, many=True)
         return Response(serializer.data)
+
+
+class DaysAndPeriodsViewSet(viewsets.ViewSet):
+    def getDaysAndPeriodsByWeekId(self, request, pk):
+        days = Day.objects.all().filter(week=pk)
+        days_ad_periods = []
+        for day in days:
+            day_serializer = DaySerializer(day)
+            period_serializer = PeriodSerializer(
+                Period.objects.all().filter(day=day.id), many=True)
+            days_ad_periods.append({
+                "day": day_serializer.data,
+                "periods":  period_serializer.data
+            })
+        return Response(days_ad_periods)
