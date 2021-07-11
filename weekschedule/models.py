@@ -1,5 +1,5 @@
+from teaching.models import Class, Course
 from django.db import models
-import datetime
 from configuration.models import Config
 
 
@@ -9,6 +9,8 @@ class Week(models.Model):
     is_ok = models.BooleanField(default=False)
     is_generated = models.BooleanField(default=False)
     configurations = models.ForeignKey(Config, on_delete=models.PROTECT)
+    level_class = models.ForeignKey(
+        to=Class, on_delete=models.CASCADE, blank=True)
 
     def __str__(self):
         return str(self.first_day)
@@ -28,7 +30,8 @@ class Period(models.Model):
     hour_begin = models.IntegerField(null=False)
     hour_end = models.IntegerField(null=True)
     is_pause = models.BooleanField(default=False)
-    is_occupied = models.BooleanField(default=False)
+    occupied_by = models.ForeignKey(
+        to=Course, on_delete=models.CASCADE, blank=True, null=True)
     was_occupied = models.BooleanField(default=False)
     day = models.ForeignKey(Day, on_delete=models.CASCADE)
 

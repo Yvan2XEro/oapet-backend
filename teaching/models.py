@@ -13,7 +13,8 @@ class Class(models.Model):
 
 class Course(models.Model):
     name = models.CharField(max_length=255)
-    teaching_class = models.ForeignKey(to=Class, on_delete=models.CASCADE)
+    level_class = models.ForeignKey(
+        to=Class, on_delete=models.CASCADE, null=True)
     teacher = models.ForeignKey(to=User, on_delete=models.PROTECT)
 
     def __str__(self):
