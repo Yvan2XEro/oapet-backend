@@ -6,7 +6,7 @@ class Pause(models.Model):
     end_at = models.IntegerField(null=True)
 
     def __str__(self):
-        return str(self.begin_at)
+        return str(self.begin_at)+'--'+str(self.end_at)
 
 
 class Config(models.Model):
@@ -32,7 +32,7 @@ class Config(models.Model):
     Saturday = models.BooleanField(default=True)
     Sunday = models.BooleanField(default=False)
 
-    pauses = models.ManyToManyField(Pause)
+    pauses = models.ManyToManyField(Pause, blank=True)
 
     def get_flags_days(self):
         return [self.Monday, self.Tuesday, self.Wednesday, self.Thursday, self.Friday, self.Saturday, self.Sunday]

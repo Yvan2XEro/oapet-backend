@@ -47,7 +47,6 @@ class ScheduleGenratorView(APIView):
 
     def post(self, request, pk, Format=None):
         week = get_object_or_404(Week, pk=pk)
-        serializer = WeekSerializer(week)
         config = week.configurations
         begin_day_at = config.begin_at
         end_day_at = config.end_at
@@ -56,9 +55,9 @@ class ScheduleGenratorView(APIView):
         pauses = config.pauses.all()
 
         flags_days = config.get_flags_days()
-        first_day = week.first_day
-        n = config.get_working_days_count()
-        dates = [first_day + datetime.timedelta(days=x) for x in range(n)]
+        delta = week.last_day - week.first_day
+        dates = [week.first_day +
+                 datetime.timedelta(days=x) for x in range(delta.days)]
         if week.is_generated == False:
             for date in dates:
                 weekday = date.weekday()
@@ -82,8 +81,9 @@ class ScheduleGenratorView(APIView):
                         period.day = d
                         period.save()
             week.is_generated = True
-        k = datetime.date(int(dates[0].year), int(
-            dates[0].month), int(dates[0].day))
+            week.save()
+
+        serializer = WeekSerializer(week)
         return Response(serializer.data)
 
 

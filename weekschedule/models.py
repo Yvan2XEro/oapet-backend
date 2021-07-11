@@ -33,4 +33,4 @@ class Period(models.Model):
     day = models.ForeignKey(Day, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.hour_begin)
+        return str(self.hour_begin)+"-"+str(self.hour_end)

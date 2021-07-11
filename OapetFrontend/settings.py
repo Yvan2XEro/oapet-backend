@@ -62,14 +62,17 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "https://example.com",
-    "https://sub.example.com",
     "http://localhost:8080",
     "http://127.0.0.1:4200",
     "http://127.0.0.1:4201",
     "http://127.0.0.1:4202",
 ]
-
+CORS_ORIGIN_WHITELIST = (
+    "http://localhost:8080",
+    "http://127.0.0.1:4200",
+    "http://127.0.0.1:4201",
+    "http://127.0.0.1:4202",
+)
 ROOT_URLCONF = 'OapetFrontend.urls'
 
 CORS_ORIGIN_ALLOW_ALL = True
