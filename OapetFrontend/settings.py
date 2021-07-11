@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'security',
     'configuration',
     'weekschedule',
+    'teaching',
 ]
 
 MIDDLEWARE = [

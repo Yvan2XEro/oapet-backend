@@ -22,6 +22,7 @@ urlpatterns = [
     path('auth/', include('security.urls')),
     path('', include('configuration.urls')),
     path('', include('weekschedule.urls')),
+    path('', include('teaching.urls')),
 
     path('auth/jwt/token', TokenObtainPairView.as_view()),
     path('auth/jwt/token/refresh', TokenRefreshView.as_view()),
