@@ -6,4 +6,6 @@ urlpatterns = [
     path('courses/<int:pk>', CourseUpdateDeleteAPIView.as_view()),
     path('classes/', ClassListCreateAPIView.as_view()),
     path('classes/<int:pk>', ClassUpdateDeleteAPIView.as_view()),
+    path('classes/<int:pk>/courses',
+         CourseByClassviewset.as_view({'get': 'getCoursesByClass'})),
 ]
