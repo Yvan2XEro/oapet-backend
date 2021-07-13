@@ -15,4 +15,7 @@ urlpatterns = [
          DaysByWeekViewSet.as_view({'get': 'getDaysByWeekId'})),
     path('weeks/<int:pk>/days-perriods',
          DaysAndPeriodsViewSet.as_view({'get': 'getDaysAndPeriodsByWeekId'})),
+    path('periods/<int:pk>/course-and-teacher',
+         DaysAndPeriodsViewSet.as_view({'get': 'getCourseAndTeacherByPeriod'})),
+
 ]
