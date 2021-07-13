@@ -73,6 +73,15 @@ CORS_ORIGIN_WHITELIST = (
     "http://127.0.0.1:4201",
     "http://127.0.0.1:4202",
 )
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
 ROOT_URLCONF = 'OapetFrontend.urls'
 
 CORS_ORIGIN_ALLOW_ALL = True

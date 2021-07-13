@@ -1,9 +1,12 @@
+from teaching.serializers import CourseSerializer
 from django.shortcuts import get_object_or_404
 from rest_framework import generics, viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import *
 from .serializers import *
+from security.models import User
+from security.serializers import UserCreateSerializer
 
 import datetime
 
@@ -114,3 +117,13 @@ class DaysAndPeriodsViewSet(viewsets.ViewSet):
                 "periods":  period_serializer.data
             })
         return Response(days_ad_periods)
+
+    def getCourseAndTeacherByPeriod(self, request, pk):
+        course = get_object_or_404(Course, pk=pk)
+        teacher = get_object_or_404(User, pk=course.teacher.id)
+        course_serializer = CourseSerializer(course)
+        teacher_serializer = UserCreateSerializer(teacher)
+        return Response({
+            "course": course_serializer.data,
+            "teacher": teacher_serializer.data
+        })
