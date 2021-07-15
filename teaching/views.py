@@ -1,3 +1,4 @@
+from django.http import response
 from weekschedule.serializers import PeriodSerializer
 from weekschedule.models import Period
 from .models import *
@@ -48,3 +49,10 @@ class TeacherDashBoard(viewsets.ViewSet):
                 "periods": period_serializer.data
             })
         return Response(response)
+
+
+class DeleteViewTest(viewsets.ViewSet):
+    def delete(self, request, pk):
+        c = get_object_or_404(Course, pk=pk)
+        c.delete()
+        return Response({"message": "success"})
