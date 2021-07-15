@@ -17,5 +17,6 @@ urlpatterns = [
          DaysAndPeriodsViewSet.as_view({'get': 'getDaysAndPeriodsByWeekId'})),
     path('periods/<int:pk>/course-and-teacher',
          DaysAndPeriodsViewSet.as_view({'get': 'getCourseAndTeacherByPeriod'})),
-
+    path('classes/<int:pk>/weeks',
+         WeekShedulesByClassId.as_view({'get': 'get'})),
 ]

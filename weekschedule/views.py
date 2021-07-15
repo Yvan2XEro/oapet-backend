@@ -97,6 +97,13 @@ class DaysByWeekViewSet(viewsets.ViewSet):
         return Response(serializer.data)
 
 
+class WeekShedulesByClassId(viewsets.ViewSet):
+    def get(self, request, pk, Format=None):
+        querySet = Week.objects.all().filter(level_class=pk)
+        serialiser = WeekSerializer(querySet, many=True)
+        return Response(serialiser.data)
+
+
 class PeriodByDayViewSet(viewsets.ViewSet):
     def getPeriodsByDayId(self, request, pk):
         queryset = Period.objects.all().filter(day=pk)

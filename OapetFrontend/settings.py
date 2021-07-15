@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-141o^2i$n0#(o5luf$@3br=3xz@i18!*ofbbu+(0842i=tkg84
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["127.0.0.1"]
 
 
 # Application definition
@@ -62,26 +62,26 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",
-    "http://127.0.0.1:4200",
-    "http://127.0.0.1:4201",
-    "http://127.0.0.1:4202",
-]
-CORS_ORIGIN_WHITELIST = (
-    "http://localhost:8080",
-    "http://127.0.0.1:4200",
-    "http://127.0.0.1:4201",
-    "http://127.0.0.1:4202",
-)
-CORS_ALLOW_METHODS = [
-    'DELETE',
-    'GET',
-    'OPTIONS',
-    'PATCH',
-    'POST',
-    'PUT',
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:8080",
+#     "http://127.0.0.1:4200",
+#     "http://127.0.0.1:4201",
+#     "http://127.0.0.1:4202",
+# ]
+# CORS_ORIGIN_WHITELIST = (
+#     "http://localhost:8080",
+#     "http://127.0.0.1:4200",
+#     "http://127.0.0.1:4201",
+#     "http://127.0.0.1:4202",
+# )
+# CORS_ALLOW_METHODS = [
+#     'DELETE',
+#     'GET',
+#     'OPTIONS',
+#     'PATCH',
+#     'POST',
+#     'PUT',
+# ]
 
 ROOT_URLCONF = 'OapetFrontend.urls'
 
