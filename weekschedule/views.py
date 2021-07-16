@@ -134,3 +134,8 @@ class DaysAndPeriodsViewSet(viewsets.ViewSet):
             "course": course_serializer.data,
             "teacher": teacher_serializer.data
         })
+
+
+class ApiTest(viewsets.ModelViewSet):
+    queryset = Period.objects.all()
+    serializer_class = PeriodSerializer(queryset)

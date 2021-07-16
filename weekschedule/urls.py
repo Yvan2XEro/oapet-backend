@@ -1,3 +1,4 @@
+from django.urls.conf import include
 from .views import *
 from django.urls import path
 
@@ -19,4 +20,5 @@ urlpatterns = [
          DaysAndPeriodsViewSet.as_view({'get': 'getCourseAndTeacherByPeriod'})),
     path('classes/<int:pk>/weeks',
          WeekShedulesByClassId.as_view({'get': 'get'})),
+    path('api/', ApiTest.as_view())
 ]
